@@ -4,9 +4,15 @@
 
 <template>
   <RouterView></RouterView>
+  <div class="color">
+    test scss
+  </div>
 </template>
 
-<style scoped>
+<style scoped lang="scss">
+.color {
+  color: #27ba9b;
+}
 header {
   line-height: 1.5;
   max-height: 100vh;
