@@ -7,7 +7,6 @@ const categoryStore = useCategoryStore()
 
 <template>
   <div class="app-header-sticky" :class="{show:y>78}">
-      {{y}}
     <div class="container">
       <RouterLink class="logo" to="/" />
       <!-- 导航区域 -->
@@ -15,7 +14,7 @@ const categoryStore = useCategoryStore()
         <li class="home">
           <RouterLink to="/">首页</RouterLink>
         </li>
-        <li v-for="item in categoryStore.categoryList" :key="item.id"> <RouterLink to="/">{{item.name}}</RouterLink></li>
+        <li v-for="item in categoryStore.categoryList" :key="item.id"> <RouterLink active-class="active" :to="`/category/${item.id}`">{{item.name}}</RouterLink></li>
       </ul>
 
       <div class="right">
