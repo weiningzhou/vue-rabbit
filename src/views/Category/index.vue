@@ -2,8 +2,8 @@
 import { getCategoryAPI } from "@/apis/category";
 import { getBannerAPI } from "@/apis/home";
 import { onMounted, ref } from "vue";
-import { useRoute,onBeforeRouteUpdate } from "vue-router";
-import GoodsItem from '@/views/Home/components/GoodsItem.vue'
+import { useRoute, onBeforeRouteUpdate } from "vue-router";
+import GoodsItem from "@/views/Home/components/GoodsItem.vue";
 const categoryData = ref({});
 const route = useRoute();
 const getCategory = async (id = route.params.id) => {
@@ -21,9 +21,9 @@ const getBanner = async () => {
 onMounted(() => {
   getBanner();
 });
-onBeforeRouteUpdate((to)=>{
-  getCategory(to.params.id)
-})
+onBeforeRouteUpdate((to) => {
+  getCategory(to.params.id);
+});
 </script>
 
 <template>
@@ -36,31 +36,31 @@ onBeforeRouteUpdate((to)=>{
           <el-breadcrumb-item>{{ categoryData.name }}</el-breadcrumb-item>
         </el-breadcrumb>
       </div>
-    </div>
-    <div class="home-banner">
-      <el-carousel height="500px">
-        <el-carousel-item v-for="item in Banner" :key="item.id">
-          <img :src="item.imgUrl" alt="" />
-        </el-carousel-item>
-      </el-carousel>
-    </div>
-    <div class="sub-list">
-      <h3>全部分类</h3>
-      <ul>
-        <li v-for="i in categoryData.children" :key="i.id">
-          <RouterLink to="/">
-            <img :src="i.picture" />
-            <p>{{ i.name }}</p>
-          </RouterLink>
-        </li>
-      </ul>
-    </div>
-    <div class="ref-goods" v-for="item in categoryData.children" :key="item.id">
-      <div class="head">
-        <h3>- {{ item.name }}-</h3>
+      <div class="home-banner">
+        <el-carousel height="500px">
+          <el-carousel-item v-for="item in Banner" :key="item.id">
+            <img :src="item.imgUrl" alt="" />
+          </el-carousel-item>
+        </el-carousel>
       </div>
-      <div class="body">
-        <GoodsItem v-for="good in item.goods" :good="good" :key="good.id" />
+      <div class="sub-list">
+        <h3>全部分类</h3>
+        <ul>
+          <li v-for="i in categoryData.children" :key="i.id">
+            <RouterLink :to="`/category/sub/${i.id}`">
+              <img :src="i.picture" />
+              <p>{{ i.name }}</p>
+            </RouterLink>
+          </li>
+        </ul>
+      </div>
+      <div class="ref-goods" v-for="item in categoryData.children" :key="item.id">
+        <div class="head">
+          <h3>- {{ item.name }}-</h3>
+        </div>
+        <div class="body">
+          <GoodsItem v-for="good in item.goods" :good="good" :key="good.id" />
+        </div>
       </div>
     </div>
   </div>
