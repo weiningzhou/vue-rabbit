@@ -25,7 +25,7 @@ httpInstance.interceptors.response.use(res => res.data, e => {
         type:'warning',
         message:e.response.data.message
     })
-    if(e.response.status=401){
+    if(e.response.status===401){
         userStore.clearUserInfo()
         router.push('/login')
     }
