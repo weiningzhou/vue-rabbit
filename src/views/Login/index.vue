@@ -1,8 +1,13 @@
 <script setup>
 import {ref} from 'vue'
+import {loginAPI} from '@/apis/user'
+import { ElMessage } from 'element-plus'
+import 'element-plus/theme-chalk/el-message.css'
+import {useRouter} from 'vue-router'
+import {useUserStore} from '@/stores/user'
 const userInfo = ref({
-  account: "",
-  password: "",
+  account: "12056258282",
+  password: "hm#qd@23!",
   agree:true
 });
 const rules = {
@@ -24,9 +29,16 @@ const rules = {
   ]
 };
 const fromRef = ref(null)
+const router = useRouter()
+const userStore = useUserStore()
 const doLogin = ()=>{
-  fromRef.value.validate((valid)=>{
-    console.log(valid)
+  const {account,password} = userInfo.value
+  fromRef.value.validate(async (valid)=>{
+    if(valid){
+      await userStore.getUserInfo({account,password})
+      ElMessage({type:'success',message:'登录成功'})
+      router.replace({path:'/'})
+    }
   })
 }
 </script>
