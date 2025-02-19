@@ -37,7 +37,10 @@ export const useCartStore = defineStore('cart',()=>{
             cartList.value = cartList.value.filter(item => item.skuId !== skuId)
         }
     }
-  
+    //清空购物车信息
+    const clearCart = ()=>{
+        cartList.value = []
+    }
     const singleCheck=(skuId,selected)=>{
         const item = cartList.value.find((item)=>item.skuId===skuId)
         item.selected = selected
@@ -62,6 +65,7 @@ export const useCartStore = defineStore('cart',()=>{
         delCart,
         singleCheck,
         allCheck,
+        clearCart
     }
 },{
     persist:true
